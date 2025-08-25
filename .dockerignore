@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.env
+venv
+.idea
+.vscode
+.md
+.pdf
+.git
+.DS_Store
+tests

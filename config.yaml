@@ -1,0 +1,55 @@
+# ==============================================================================
+# --- 主配置文件 ---
+# ==============================================================================
+
+# 分析模式: 'FILES' 或 'SHEETS'
+# 'FILES': 对比 'data_sources.files' 列表中的多个独立文件
+# 'SHEETS': 对比 'data_sources.sheets_config' 中指定的单个文件内的多个工作表
+active_mode: 'FILES'
+
+# --- 数据源配置 ---
+data_sources:
+  files:
+    - './data/历史数据v1.xlsx'
+    - './data/最新数据v2.xlsx'
+    - './data/最新数据v3.xlsx'
+
+#  sheets_config:
+#    file_path: './data/综合数据.xlsx'
+#    sheet_names: ['版本1', '版本2', '版本3']
+
+# --- 核心分析参数 ---
+analysis_params:
+  # 用于唯一标识一条记录的列名组合
+  key_columns: ['时间', '省份', '行业编码']
+
+  # 在历史追溯模式下，需要追踪其数值变化的列
+  value_column: '电量'
+
+  # 在历史追溯模式下，仅向LLM提供Top-N条最异常的数据进行分析
+  # 设置为 0 或 null 则分析所有变更记录
+  top_n_for_analysis: 15
+
+  # 数据预处理格式化规则
+  # type: 'zfill' -> 前置补零
+  formatting_rules:
+    行业编码:
+      type: 'zfill'
+      width: 4
+
+# --- LLM 模型配置 ---
+llm:
+  # DashScope模型名称
+  model_name: "qwen3-32b"
+
+  # System prompts 角色设定
+  system_prompts:
+    comparison: "你是一名资深务实的数据分析专家，精确比对，逻辑严谨。"
+    historical: "你是一名资深务实的数据分析专家，能进行准确的电量数据质量链式追溯分析，并能由此提供初步结论和建议。"
+
+# --- 日志与输出配置 ---
+output:
+  # Prompt和Result日志的保存目录
+  log_directory: './logs'
+  # 最终分析报告的保存目录
+  report_directory: '.'

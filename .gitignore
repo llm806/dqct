@@ -1,0 +1,53 @@
+# 字节码或编译文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.md
+*.pdf
+*.tar
+*.zip
+*.tar.gz
+*.rar
+*.7z
+logs/
+
+
+# C 语言扩展
+*.so
+
+# 分发/打包
+.bundle/
+dist/
+build/
+*.egg-info/
+*.egg
+
+# 虚拟环境
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# PyCharm 特定文件
+.idea/
+
+# 数据库文件
+*.sqlite3
+*.db
+
+# 日志和缓存文件
+*.log
+.pytest_cache/
+.mypy_cache/
+.tox/
+.nox/
+.coverage
+.cache
+.hypothesis/
+
+# 操作系统生成的文件
+.DS_Store
+Thumbs.db
+desktop.ini
