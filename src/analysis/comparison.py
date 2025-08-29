@@ -5,8 +5,10 @@ from typing import List, Optional
 
 def _are_series_equal(s1: pd.Series, s2: pd.Series) -> pd.Series:
     """
-    智能比较两个Series，优先尝试数值比较，失败则回退到字符串比较。
-    这是解决 '269' 和 '269.0' 被错误识别为差异的关键。
+    比较两个Series，尝试将其转换为数值进行比较，如果无法转换则作为字符串比较。
+    这样可以避免数值与字符串形式的数值被误判为不同。
+    例如 '123' 和 123 应该被认为是相等的。
+    避免了传统比较方式的缺陷（比如把所有东西转成字符串后，100 和 100.0 可能会被误判为不相等）
     """
     s1_numeric = pd.to_numeric(s1, errors='coerce')
     s2_numeric = pd.to_numeric(s2, errors='coerce')
@@ -28,7 +30,7 @@ def generate_precise_diff_report(
     columns_to_check: Optional[List[str]] = None
 ) -> str:
     """
-    生成高精度的人类可读的数据差异日志，对比两个DataFrame。
+    生成高精度的人类可读的数据差异项，对比两个DataFrame。
     """
     hist = df_hist.copy()
     latest = df_latest.copy()

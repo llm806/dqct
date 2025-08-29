@@ -10,6 +10,7 @@ __pycache__/
 *.tar.gz
 *.rar
 *.7z
+*.mp4
 logs/
 
 
